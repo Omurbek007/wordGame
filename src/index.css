@@ -5,15 +5,17 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 90%;
+  max-width: 450px;
+  padding: 0 1rem 5rem 1rem;
+  overflow: hidden;
 }
 body {
+  min-height: 100vh;
   position: relative;
   margin: 0;
   font-family: "Hanken Grotesk", Arial, sans-serif;
   background-color: #262626;
   color: #D9D9D9;
-  height: 100vh;
   display: flex;
   justify-content: center;
 }
@@ -34,16 +36,19 @@ header > p {
   max-width: 350px;
   color: #8E8E8E;
 }
-
+.status-section, .clue-container, .keyboard-section {
+  width: 100%;
+}
 .status-section {
-  min-width: 350px;
-  min-height: 70px;
+  min-height: 85px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   border-radius: 4px;
   margin-block: 8px;
   transition: all 0.8s ease-in-out;
+  text-align: center;
 }
 .status-section.won {
   background-color: #10A95B;
@@ -55,26 +60,36 @@ header > p {
 .status-section.lose {
   background-color: #EC5D49;
   transition: all 0.8s ease-in-out;
-  animation: fadeIn 2s infinite ease-in-out;
+  line-height: 1.2;
 }
 .status-section.farewell{
   display: flex;
   align-items: center;
+  min-width: 350px;
   justify-content: center;
   background-color: #7A5EA7;
   border: 1px dashed #323232;
   font-style: italic;
   font-weight: 400;
   transition: all 0.8s ease-in-out;
+    overflow: hidden; /* Hides text that goes beyond the container */
+    white-space: nowrap; /* Keeps text on one line */
 }
-.status-section.farewell-message {
+
+.status-section .farewell-message {
+  display: inline-block; /* Allows animation to move it */
+  animation: marquee 10s linear infinite; /* 10s speed, smooth motion, loops forever */
   font-style: italic;
   font-weight: 400;
 }
+@keyframes marquee {
+  0% { transform: translateX(150%); } /* Starts off-screen to the right */
+  100% { transform: translateX(-150%); } /* Moves off-screen to the left */
+}
+
 .clue-container {
   color: #e5a511;
   background-color: #16353f;
-  min-width: 350px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -82,11 +97,12 @@ header > p {
   min-height: 30px;
   border-radius: 4px;
   border: 1px dashed #e5a511;
-  padding: 2em;
+  padding-block: 10px;
   transition: all 0.8s ease-in-out;
 }
 .clue-container p,small{
-  margin: 0;
+  text-align: center;
+  margin: 0.2em;
 }
 .clue-container small {
   color: #10A95B;
@@ -131,6 +147,7 @@ span.lang.lost::before {
   background-color: rgba(0, 0, 0, 0.7);
 }
 .word-section {
+  max-width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -147,26 +164,30 @@ span.lang.lost::before {
   justify-content: center;
   font-size: 1.25rem;
   background-color: #323232;
-  color: #F9F4DA;
+  color: #10A95B;
+  /* color: #F9F4DA; */
   border-bottom: #F9F4DA 2px solid;
   transition: all 0.8s ease-in-out;
 }
 
 .word-section span.missing-letters {
   color: #EC5D49;
-  transition: all 0.8s ease-in-out;
-  /* animation: fadeIn 1s infinite ease-in-out; */
+  transition: all 0.5s ease-in-out;
+  animation: fadeIn 2s infinite ease-in-out;
 }
+
 
 @keyframes fadeIn {
   0% {
-    opacity: 0;
+    border-bottom: #EC5D49 2px solid;
   }
+  
   50% {
-    opacity: 1;
+    border-bottom: #F9F4DA 2px solid;
   }
   100% {
-    opacity: 0;
+    border-bottom: #EC5D49 2px solid;
+
   }
 }
 
@@ -174,7 +195,6 @@ span.lang.lost::before {
   opacity: 0.4;
 }
 .keyboard-section {
-  max-width: 470px;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -212,12 +232,13 @@ span.lang.lost::before {
 }
 
 button.new-game {
-  background-color: #11B5E5;
-  color: #faf9fc;
+  background-color: #16353f;
+  box-shadow: #8244b2 0px 0px 1px 0px ;
+  color: #e5a511;
   font-weight: 500;
   font-size: large;
-  border: none;
-  border-radius: 4px;
+  border-radius: 8px;
+  border: 2px solid #175584;
   width: 225px;
   height: 40px;
   padding: 6px 12px;
@@ -226,6 +247,11 @@ button.new-game {
   margin-block: 20px;
   cursor: pointer;
   transition: all 0.8s ease-in-out;
+}
+button.new-game:hover {
+  background-color: #175584;
+  color: #D7D7D7;
+  transition: all 0.3s ease-in-out;
 }
 
 .keysDisable button{
@@ -244,4 +270,23 @@ button.new-game {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #044f68;
+  padding: 1em;
+  position: absolute;
+  bottom: 0;
+}
+footer p {
+  margin: 0;
+  padding: 0.3em;
+}
+footer a {
+  color: #776605;
+  text-decoration: none;
 }

@@ -71,9 +71,9 @@ function App() {
     if (!isGameOver && lastGuessedIncorrect) {
       return (
         <>
-        <marquee behavior="" direction="left">
-        <p className='farwell-message'>{languages[wrongGuessedCount - 1].farewell}</p>
-        </marquee>
+        <p className='farewell-message'>
+       {languages[wrongGuessedCount - 1].farewell}
+        </p>
         </>
       )
   } 
@@ -152,6 +152,13 @@ function resetGame() {
         {keyboardElement}
       </section>
       {isGameOver && <button onClick={() => resetGame()} className='new-game'>Новая игра</button>}
+      <footer>
+        <p>© Created by Omurbek 2025</p>
+        <p>
+          <a href="https://github.com/Omurbek007" target="_blank" rel="noopener noreferrer">GitHub</a> | 
+          <a href="https://www.linkedin.com/in/omurbek-melisbekov-a60112170/" target="_blank" rel="noopener noreferrer"> LinkedIn</a>
+        </p>
+      </footer>
     </>
   )
 }
